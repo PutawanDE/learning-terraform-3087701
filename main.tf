@@ -3,7 +3,7 @@ data "aws_ami" "app_ami" {
 
   filter {
     name   = "name"
-    values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami"]
+    values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami*"]
   }
 
   filter {
@@ -11,7 +11,7 @@ data "aws_ami" "app_ami" {
     values = ["hvm"]
   }
 
-  owners = ["979382823631"] # Bitnami
+  owners = ["aws-marketplace"]
 }
 
 data "aws_vpc" "default" {
@@ -24,9 +24,8 @@ module "blog_vpc" {
   name = "dev"
   cidr = "10.0.0.0/16"
 
-  azs             = ["ap-southeast-7a", "ap-southeast-7b", "ap-southeast-7c"]
-
-  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  azs             = var.azs
+  public_subnets  = var.public_subnet_cidrs
 
   tags = {
     Terraform = "true"
@@ -42,7 +41,7 @@ resource "aws_instance" "blog" {
   subnet_id = module.blog_vpc.public_subnets[0]
 
   tags = {
-    Name = "HelloWorld"
+    Name = "LearnTerraform"
   }
 }
 
