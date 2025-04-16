@@ -1,7 +1,7 @@
 variable "instance_type" {
  description = "Type of EC2 instance to provision"
  type        = string
- default     = "t3.nano"
+ default     = "t3.micro"
 }
 
 variable "public_subnet_cidrs" {
