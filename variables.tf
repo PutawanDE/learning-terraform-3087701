@@ -4,20 +4,40 @@ variable "instance_type" {
  default     = "t3.micro"
 }
 
-variable "public_subnet_cidrs" {
-  description = "List of public subnet CIDR blocks"
-  type        = list(string)
-  default     = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+variable "ami_filter" {
+  description = "Name filter and owner for AMI"
+
+  type = object({
+    name = string
+    owner = string
+  })
+  
+  default = {
+    name  = "bitnami-tomcat-*-x86_64-hvm-ebs-nami*"
+    owner = "aws-marketplace"
+  }
 }
 
-variable "region" {
- description = "AWS region to deploy resources"
- type        = string
- default     = "ap-southeast-7"
+variable "environment" {
+  description = "Development environment"
+
+  type = object({
+    name           = string
+    network_prefix = string
+  })
+
+  default = {
+    name           = "dev"
+    network_prefix = "10.0"
+  }
 }
 
-variable "azs" {
-  description = "List of availability zones"
-  type        = list(string)
-  default     = ["ap-southeast-7a", "ap-southeast-7b", "ap-southeast-7c"]
+variable "asg_min_size" {
+  description = "Minimum number of instances in the autoscaling group"
+  default     = 1
+}
+
+variable "asg_max_size" {
+  description = "Maximum number of instances in the autoscaling group"
+  default     = 2
 }
