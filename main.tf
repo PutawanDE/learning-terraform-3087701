@@ -35,7 +35,7 @@ module "blog_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "8.2.0"
   
-  name     = "${var.enviroment.name}-blog"
+  name     = "${var.environment.name}-blog"
   min_size = var.asg_min_size
   max_size = var.asg_max_size
 
@@ -55,7 +55,7 @@ module "blog_autoscaling" {
 module "blog_alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "${var.enviroment.name}-blog-alb"
+  name    = "${var.environment.name}-blog-alb"
 
   vpc_id          = module.blog_vpc.vpc_id
   subnets          = module.blog_vpc.public_subnets
@@ -92,7 +92,7 @@ module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.3.0"
 
-  name    = "${var.enviroment.name}-blog"
+  name    = "${var.environment.name}-blog"
   vpc_id  = module.blog_vpc.vpc_id
 
   ingress_rules       = ["https-443-tcp", "http-80-tcp"]
