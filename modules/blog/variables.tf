@@ -4,20 +4,6 @@ variable "instance_type" {
  default     = "t3.micro"
 }
 
-variable "region" {
-  description = "AWS region to deploy the resources"
-  type        = string
-  default     = "ap-southeast-7"
-  
-}
-
-variable "azs" {
-  description = "Availability Zones to use for the resources"
-  type        = list(string)
-  default     = ["ap-southeast-7a", "ap-southeast-7b", "ap-southeast-7c"] 
-  
-}
-
 variable "ami_filter" {
   description = "Name filter and owner for AMI"
 
